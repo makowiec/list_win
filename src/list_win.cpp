@@ -12,6 +12,7 @@
 LPCSTR NazwaKlasy = "Klasa Okna";
 MSG Komunikat; //zmienan do przechwytywania komunikatów
 HWND g_hPrzycisk1; //przycisk 1
+HWND g_hRamka1; //ramka 1
 
 LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
@@ -52,6 +53,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     g_hPrzycisk1 = CreateWindowEx( 0, "BUTTON", "Tworzenie listy", WS_CHILD | WS_VISIBLE,
     50, 500, 150, 30, hwnd, NULL, hInstance, NULL );
 
+    // Tworzenie ramki 1
+    g_hRamka1 = CreateWindowEx( 0, "BUTTON", "Podaj zmienne", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
+    30, 30, 400, 300, hwnd, NULL, hInstance, NULL );
+
+    // Pole tekstowe 1
+    HWND hText1 = CreateWindowEx( WS_EX_CLIENTEDGE, "EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER,
+    50, 50, 150, 20, hwnd, NULL, hInstance, NULL );
+
     if( hwnd == NULL )
     {
         MessageBox( NULL, "Okno odmówi³o przyjœcia na œwiat!", "Ale kicha...", MB_ICONEXCLAMATION );
@@ -84,6 +93,11 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
         PostQuitMessage( 0 );
         break;
 
+    case WM_COMMAND:
+    if(( HWND ) lParam == g_hPrzycisk1 )
+         MessageBox( hwnd, "Rozpoczêto tworzenie listy plików", "Tworzenie listy", MB_ICONINFORMATION );
+
+    break;
         default:
         return DefWindowProc( hwnd, msg, wParam, lParam );
     }
