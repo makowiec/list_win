@@ -9,8 +9,9 @@
 
 #include <windows.h>
 
-LPCSTR NazwaKlasy = "Klasa Okienka";
-MSG Komunikat;
+LPCSTR NazwaKlasy = "Klasa Okna";
+MSG Komunikat; //zmienan do przechwytywania komunikatów
+HWND g_hPrzycisk1; //przycisk 1
 
 LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
@@ -20,23 +21,23 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     // WYPE£NIANIE STRUKTURY
     WNDCLASSEX wc;
 
-    wc.cbSize = sizeof( WNDCLASSEX );
-    wc.style = 0;
-    wc.lpfnWndProc = WndProc;
-    wc.cbClsExtra = 0;
-    wc.cbWndExtra = 0;
-    wc.hInstance = hInstance;
-    wc.hIcon = LoadIcon( NULL, IDI_APPLICATION );
-    wc.hCursor = LoadCursor( NULL, IDC_ARROW );
-    wc.hbrBackground =( HBRUSH )( COLOR_WINDOW + 1 );
-    wc.lpszMenuName = NULL;
-    wc.lpszClassName = NazwaKlasy;
-    wc.hIconSm = LoadIcon( NULL, IDI_APPLICATION );
+    wc.cbSize = sizeof( WNDCLASSEX ); //Rozmiar struktury w bajtach
+    wc.style = 0; //style klasy
+    wc.lpfnWndProc = WndProc; //WskaŸnik do procedury obs³uguj¹cej okno
+    wc.cbClsExtra = 0; //Dodatkowe bajty pamiêci dla klasy
+    wc.cbWndExtra = 0; //Dodatkowe bajty pamiêci dla klasy
+    wc.hInstance = hInstance; //Identyfikator aplikacji, która ma byæ w³aœcicielem okna
+    wc.hIcon = LoadIcon( NULL, IDI_APPLICATION ); //Ikonka okna. Dok³adniej: du¿a ikonka, widaæ j¹ kiedy naciœniesz Alt-Tab
+    wc.hCursor = LoadCursor( NULL, IDC_ARROW ); //Kursor myszki
+    wc.hbrBackground =( HBRUSH )( COLOR_WINDOW + 1 ); //T³o naszego okienka, czyli jego kolor i wzór
+    wc.lpszMenuName = NULL; //Nazwa identyfikuj¹ca menu naszego okna w pliku zasobów
+    wc.lpszClassName = NazwaKlasy; //Nazwa klasy, któr¹ tworzymy
+    wc.hIconSm = LoadIcon( NULL, IDI_APPLICATION ); //Ma³a ikonka naszej aplikacji. Widaæ j¹ w rogu naszego okienka oraz na pasku zadañ
 
     // REJESTROWANIE KLASY OKNA
     if( !RegisterClassEx( & wc ) )
     {
-        MessageBox( NULL, "Wysoka Komisja odmawia rejestracji tego okna!", "Niestety...",
+        MessageBox( NULL, "Okno nie zosta³o zarejestrowane", "Do poprawy",
         MB_ICONEXCLAMATION | MB_OK );
         return 1;
     }
@@ -47,6 +48,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     hwnd = CreateWindowEx( WS_EX_CLIENTEDGE, NazwaKlasy, "KC List", WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, NULL, NULL, hInstance, NULL );
 
+    // Tworzenie przycisku 1
+    g_hPrzycisk1 = CreateWindowEx( 0, "BUTTON", "Tworzenie listy", WS_CHILD | WS_VISIBLE,
+    50, 500, 150, 30, hwnd, NULL, hInstance, NULL );
+
     if( hwnd == NULL )
     {
         MessageBox( NULL, "Okno odmówi³o przyjœcia na œwiat!", "Ale kicha...", MB_ICONEXCLAMATION );
@@ -56,12 +61,13 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     ShowWindow( hwnd, nCmdShow ); // Poka¿ okienko...
     UpdateWindow( hwnd );
 
-    // Pêtla komunikatów
+    // Obsluga komunikatów komunikatów
     while( GetMessage( & Komunikat, NULL, 0, 0 ) )
     {
         TranslateMessage( & Komunikat );
         DispatchMessage( & Komunikat );
     }
+
     return Komunikat.wParam;
 }
 
