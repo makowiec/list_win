@@ -13,6 +13,12 @@ LPCSTR NazwaKlasy = "Klasa Okna";
 MSG Komunikat; //zmienan do przechwytywania komunikatów
 HWND g_hPrzycisk1; //przycisk 1
 HWND g_hRamka1; //ramka 1
+HWND g_hComboBox1; //ComboBox 1 - ID
+HWND g_hStaticText1; //StaticText 1 - ID
+HWND g_hComboBox2; //ComboBox 2 - rok
+HWND g_hStaticText2; //StaticText 2 - rok
+HWND g_hComboBox3; //ComboBox 3 - miesi¹c
+HWND g_hStaticText3; //StaticText 1 - miesi¹c
 
 LRESULT CALLBACK WndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
@@ -54,10 +60,47 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     50, 500, 150, 30, hwnd, NULL, hInstance, NULL );
 
     // Tworzenie ramki 1
-    g_hRamka1 = CreateWindowEx( 0, "BUTTON", "Podaj zmienne", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
-    30, 30, 400, 300, hwnd, NULL, hInstance, NULL );
+    g_hRamka1 = CreateWindowEx( 0, "BUTTON", "Zmienne", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
+    30, 30, 350, 200, hwnd, NULL, hInstance, NULL );
 
+    // ComboBox1 - ID
+    HWND hComboBox1 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
+    CBS_DROPDOWN, 150, 60, 150, 200, hwnd, NULL, hInstance, NULL );
 
+    SendMessage( hComboBox1, CB_ADDSTRING, 0,( LPARAM ) "Element 1" );
+    SendMessage( hComboBox1, CB_ADDSTRING, 0,( LPARAM ) "Element 2" );
+
+    // StaticText1 - ID
+    HWND hStaticText1 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    SS_LEFT, 50, 60, 75, 20, hwnd, NULL, hInstance, NULL );
+
+    SetWindowText( hStaticText1, " ID: " );
+
+    // ComboBox2 - rok
+    HWND hComboBox2 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
+    CBS_DROPDOWN, 150, 110, 150, 200, hwnd, NULL, hInstance, NULL );
+
+    SendMessage( hComboBox2, CB_ADDSTRING, 0,( LPARAM ) "Element 1" );
+    SendMessage( hComboBox2, CB_ADDSTRING, 0,( LPARAM ) "Element 2" );
+
+    // StaticText2 - rok
+    HWND hStaticText2 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    SS_LEFT, 50, 110, 75, 20, hwnd, NULL, hInstance, NULL );
+
+    SetWindowText( hStaticText2, " Rok:" );
+
+    // ComboBox3 - miesi¹c
+    HWND hComboBox3 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
+    CBS_DROPDOWN, 150, 160, 150, 200, hwnd, NULL, hInstance, NULL );
+
+    SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "Element 1" );
+    SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "Element 2" );
+
+    // StaticText3 - miesi¹c
+    HWND hStaticText3 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    SS_LEFT, 50, 160, 75, 20, hwnd, NULL, hInstance, NULL );
+
+    SetWindowText( hStaticText3, " Miesi¹c: " );
 
     if( hwnd == NULL )
     {
