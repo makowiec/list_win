@@ -8,6 +8,7 @@
 //============================================================================
 
 #include <windows.h>
+#include <Windowsx.h>
 
 LPCSTR NazwaKlasy = "Klasa Okna";
 MSG Komunikat; //zmienan do przechwytywania komunikatów
@@ -61,11 +62,17 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     	g_hRamka1 = CreateWindowEx( 0, "BUTTON", "Zmienne", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
     	30, 30, 350, 250, hwnd, NULL, hInstance, NULL );
 
+    	const char *ComboBox1_text[] = { "Radom", "Nysa" };
+
     		// ComboBox1 - Nazwa
     		HWND hComboBox1 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
     		CBS_DROPDOWN, 150, 60, 150, 200, hwnd, NULL, hInstance, NULL );
-    			SendMessage( hComboBox1, CB_ADDSTRING, 0,( LPARAM ) "Radom" );
-    			SendMessage( hComboBox1, CB_ADDSTRING, 0,( LPARAM ) "Nysa" );
+    		for(int Count = 0; Count < 2; Count++)
+            {
+                SendMessage(hComboBox1, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>((LPCTSTR)ComboBox1_text[Count]));
+            }
+
+    			int nr_cb_1 = ComboBox_GetCurSel( hComboBox1 );
 
     				// StaticText1 - Nazwa
     				HWND hStaticText1 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
