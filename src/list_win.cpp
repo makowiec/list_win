@@ -57,9 +57,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     g_hRamka1 = CreateWindowEx( 0, "BUTTON", "Podaj zmienne", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
     30, 30, 400, 300, hwnd, NULL, hInstance, NULL );
 
-    // Pole tekstowe 1
-    HWND hText1 = CreateWindowEx( WS_EX_CLIENTEDGE, "EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER,
-    50, 50, 150, 20, hwnd, NULL, hInstance, NULL );
+
 
     if( hwnd == NULL )
     {
