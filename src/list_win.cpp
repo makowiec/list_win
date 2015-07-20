@@ -9,6 +9,9 @@
 
 #include <windows.h>
 #include <Windowsx.h>
+#include <string.h>
+
+using namespace std;
 
 LPCSTR NazwaKlasy = "Klasa Okna";
 MSG Komunikat; //zmienan do przechwytywania komunikatów
@@ -62,71 +65,71 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     	g_hRamka1 = CreateWindowEx( 0, "BUTTON", "Zmienne", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
     	30, 30, 350, 250, hwnd, NULL, hInstance, NULL );
 
-    	const char *ComboBox1_text[] = { "Radom", "Nysa" };
+    	//ComboBox - Nazwa
 
-    		// ComboBox1 - Nazwa
-    		HWND hComboBox1 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
+    		//ComboBox1 - tablica
+    		const char *ComboBox1_text[] = { "Radom", "Nysa" };
+    		// ComboBox1
+    		HWND hComboBox1 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | CBS_DROPDOWNLIST |
     		CBS_DROPDOWN, 150, 60, 150, 200, hwnd, NULL, hInstance, NULL );
     		for(int Count = 0; Count < 2; Count++)
             {
                 SendMessage(hComboBox1, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>((LPCTSTR)ComboBox1_text[Count]));
             }
 
-    			int nr_cb_1 = ComboBox_GetCurSel( hComboBox1 );
+    		// StaticText1
+    		HWND hStaticText1 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    		SS_LEFT, 50, 60, 75, 20, hwnd, NULL, hInstance, NULL );
+    		SetWindowText( hStaticText1, " Nazwa: " );
 
-    				// StaticText1 - Nazwa
-    				HWND hStaticText1 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
-    				SS_LEFT, 50, 60, 75, 20, hwnd, NULL, hInstance, NULL );
-    					SetWindowText( hStaticText1, " Nazwa: " );
+    	// ComboBox2 - ID
 
-    		// ComboBox2 - ID
-    		HWND hComboBox2 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
+    		//ComboBox2 - tablica
+    		const char *ComboBox2_text[] = { "R001", "R002", "R003", "N001", "N002", "N003" };
+    		// ComboBox2
+    		HWND hComboBox2 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | CBS_DROPDOWNLIST |
     		CBS_DROPDOWN, 150, 110, 150, 200, hwnd, NULL, hInstance, NULL );
-    			SendMessage( hComboBox2, CB_ADDSTRING, 0,( LPARAM ) "R001" );
-    			SendMessage( hComboBox2, CB_ADDSTRING, 0,( LPARAM ) "N002" );
+    		for(int Count = 0; Count < 6; Count++)
+    		{
+    			SendMessage(hComboBox2, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>((LPCTSTR)ComboBox2_text[Count]));
+    		}
+    		// StaticText2
+    		HWND hStaticText2 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    		SS_LEFT, 50, 110, 75, 20, hwnd, NULL, hInstance, NULL );
+    		SetWindowText( hStaticText2, " ID:" );
 
-    				// StaticText2 - ID
-    				HWND hStaticText2 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
-    				SS_LEFT, 50, 110, 75, 20, hwnd, NULL, hInstance, NULL );
-    					SetWindowText( hStaticText2, " ID:" );
+    	// ComboBox3 - rok
 
-    		// ComboBox3 - rok
+    		//ComboBox3 - tablica
+    		const char *ComboBox3_text[] = { "2010", "2011", "2012", "2013", "2014", "2015" };
+    		// ComboBox3
     		HWND hComboBox3 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
     		CBS_DROPDOWN, 150, 160, 150, 200, hwnd, NULL, hInstance, NULL );
-    			SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "2010" );
-    			SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "2011" );
-    			SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "2012" );
-    			SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "2013" );
-    			SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "2014" );
-    			SendMessage( hComboBox3, CB_ADDSTRING, 0,( LPARAM ) "2015" );
+    		for(int Count = 0; Count < 6; Count++)
+    		{
+    			SendMessage(hComboBox3, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>((LPCTSTR)ComboBox3_text[Count]));
+    		}
+    		// StaticText3
+    		HWND hStaticText3 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    		SS_LEFT, 50, 160, 75, 20, hwnd, NULL, hInstance, NULL );
+    		SetWindowText( hStaticText3, " Rok: " );
 
-    				// StaticText3 - rok
-    				HWND hStaticText3 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
-    				SS_LEFT, 50, 160, 75, 20, hwnd, NULL, hInstance, NULL );
-    					SetWindowText( hStaticText3, " Rok: " );
-
-    		// ComboBox4 - miesi¹c
+/*
+ Problem do rozwi¹zania wybór combobox 4 w zale¿noœci od wartoœci combobox 1
+ 	 	 // ComboBox4 - miesi¹c
+    		//ComboBox4 - tablica - R
+    		const char *ComboBox4R_text[] = { "*", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+    		//ComboBox4 - tablica - N
+    		const char *ComboBox4N_text[] = { "*", "01*", "02*", "03*", "04*", "05*", "06*", "07*", "08*", "09*", "10*", "11*", "12*" };
+    		// ComboBox4
     		HWND hComboBox4 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
     		CBS_DROPDOWN, 150, 210, 150, 250, hwnd, NULL, hInstance, NULL );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "ALL" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "01" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "02" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "03" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "04" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "05" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "06" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "07" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "08" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "09" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "10" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "11" );
-    			SendMessage( hComboBox4, CB_ADDSTRING, 0,( LPARAM ) "12" );
 
-    				// StaticText4 - miesi¹c
-    				HWND hStaticText4 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
-    				SS_LEFT, 50, 210, 75, 20, hwnd, NULL, hInstance, NULL );
-    					SetWindowText( hStaticText4, " Miesi¹c: " );
-
+    		// StaticText4 - miesi¹c
+    		HWND hStaticText4 = CreateWindowEx( 0, "STATIC", NULL, WS_CHILD | WS_VISIBLE |
+    		SS_LEFT, 50, 210, 75, 20, hwnd, NULL, hInstance, NULL );
+    		SetWindowText( hStaticText4, " Miesi¹c: " );
+*/
     // Tworzenie przycisku 1
     g_hPrzycisk1 = CreateWindowEx( 0, "BUTTON", "Tworzenie listy", WS_CHILD | WS_VISIBLE,
     50, 300, 150, 30, hwnd, NULL, hInstance, NULL );
