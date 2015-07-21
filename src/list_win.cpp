@@ -126,13 +126,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
     	//tworzenie ComboBox3
     	hComboBox3 = CreateWindowEx( WS_EX_CLIENTEDGE, "COMBOBOX", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
     	CBS_DROPDOWN, 150, 160, 150, 200, hWnd, NULL, *hInst, NULL );
-    	//dodawanie pozycji dla ComboBox3
-    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2010");
-    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2011");
-    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2012");
-    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2013");
-    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2014");
-    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2015");
 
     	//ComboBox4
     	//tworzenie ComboBox4
@@ -144,14 +137,26 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
     	if (lParam == (LPARAM)hComboBox1 && HIWORD (wParam) == CBN_SELENDOK)
     	{
-    	int  iIndex = SendMessage(hComboBox1, CB_GETCURSEL, 0, 0);
+
+
+    	int iIndex = SendMessage(hComboBox1, CB_GETCURSEL, 0, 0);
 
     		if (cb_1_1 == iIndex)
     		{
     			//dodawanie pozycji dla combobo 2
+    			SendMessage(hComboBox2, CB_RESETCONTENT,0,0);
     			SendMessage(hComboBox2, CB_ADDSTRING,0, (LPARAM)"R01");
     			SendMessage(hComboBox2, CB_ADDSTRING,0, (LPARAM)"R02");
+    			//dodawanie pozycji dla combobo 3
+    			SendMessage(hComboBox3, CB_RESETCONTENT,0,0);
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2010");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2011");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2012");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2013");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2014");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2015");
     			//dodawanie pozycji dla combobo 4
+    			SendMessage(hComboBox4, CB_RESETCONTENT,0,0);
     			SendMessage(hComboBox4, CB_ADDSTRING,0, (LPARAM)"01");
     			SendMessage(hComboBox4, CB_ADDSTRING,0, (LPARAM)"02");
     			SendMessage(hComboBox4, CB_ADDSTRING,0, (LPARAM)"03");
@@ -168,9 +173,19 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
     		if (cb_1_2 == iIndex)
     		{
     			//dodawanie pozycji dla combobo 2
+    			SendMessage(hComboBox2, CB_RESETCONTENT,0,0);
     			SendMessage(hComboBox2, CB_ADDSTRING,0, (LPARAM)"N01");
     			SendMessage(hComboBox2, CB_ADDSTRING,0, (LPARAM)"N02");
+    			//dodawanie pozycji dla combobo 3
+    			SendMessage(hComboBox3, CB_RESETCONTENT,0,0);
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2010");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2011");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2012");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2013");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2014");
+    	    	SendMessage(hComboBox3, CB_ADDSTRING,0, (LPARAM)"2015");
     			//dodawanie pozycji dla combobo 4
+    			SendMessage(hComboBox4, CB_RESETCONTENT,0,0);
     			SendMessage(hComboBox4, CB_ADDSTRING,0, (LPARAM)"01*");
     			SendMessage(hComboBox4, CB_ADDSTRING,0, (LPARAM)"02*");
     			SendMessage(hComboBox4, CB_ADDSTRING,0, (LPARAM)"03*");
